@@ -48,7 +48,7 @@ public class framePengobatan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("id_laporan_pengobatan");
 
@@ -168,11 +168,11 @@ public class framePengobatan extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            if (crud.duplicateKey("pengobatan", "id_laporan_pengobatan", txtidpeng.getText())) {
+            if (crud.duplicateKey("laporan_pengobatan", "id_laporan_pengobatan", txtidpeng.getText())) {
                 JOptionPane.showMessageDialog(null, "ID Karyawan Sudah ada");
             }else{
                 String[] isiField={txtidpeng.getText(),txtjenis.getText(),txtbiaya.getText(),txtnamaobat.getText(),txtnamars.getText(),txtidinputdata.getText()};
-                crud.SimpanDinamis("pengobatan", fieldSimpan, isiField);
+                crud.SimpanDinamis("laporan_pengobatan", fieldSimpan, isiField);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -183,7 +183,7 @@ public class framePengobatan extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
                 String[] valueField = {txtidpeng.getText(),txtjenis.getText(),txtbiaya.getText(),txtnamaobat.getText(),txtnamars.getText(),txtidinputdata.getText()};
-                crud.UbahDinamis("pengobatan", "id_laporan_pengobatan", txtidpeng.getText(), fieldEdit, valueField);
+                crud.UbahDinamis("laporan_pengobatan", "id_laporan_pengobatan", txtidpeng.getText(), fieldEdit, valueField);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
@@ -192,7 +192,7 @@ public class framePengobatan extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-                crud.HapusDinamis("pengobatan", "id_laporan_pengobatan", txtidpeng.getText());
+                crud.HapusDinamis("laporan_pengobatan", "id_laporan_pengobatan", txtidpeng.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }

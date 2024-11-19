@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class frameKecelakaanKerja extends javax.swing.JFrame {
     private configDB crud; //nama objek secara global dari config db
-    private String[] fieldSimpan={"id_laporan_KK","korban","kronologi_kejadian","unit_kerja","id_inputan_data"};
-    private String[] fieldEdit={"korban","kronologi_kejadian","unit_kerja","id_inputan_data"};
+    private String[] fieldSimpan={"id_laporan_KK","korban","kronologi_kejadian","unit_kerja","id_input_data"};
+    private String[] fieldEdit={"korban","kronologi_kejadian","unit_kerja","id_input_data"};
     /**
      * Creates new form frameKecelakaanKerja
      */
@@ -48,7 +48,7 @@ public class frameKecelakaanKerja extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("id_laporan_KK");
 
@@ -149,11 +149,11 @@ public class frameKecelakaanKerja extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            if (crud.duplicateKey("kecelakaankerja", "id_laporan_KK", txtidlap.getText())) {
+            if (crud.duplicateKey("laporan_kecelakaan_kerja", "id_laporan_KK", txtidlap.getText())) {
                 JOptionPane.showMessageDialog(null, "ID karyawan Sudah ada");
             }else{
                 String[] isiField={txtidlap.getText(),txtkorban.getText(),txtkk.getText(),txtunit.getText(),txtidinput.getText()};
-                crud.SimpanDinamis("kecelakaankerja", fieldSimpan, isiField);
+                crud.SimpanDinamis("laporan_kecelakaan_kerja", fieldSimpan, isiField);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -164,7 +164,7 @@ public class frameKecelakaanKerja extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
                 String[] valueField = {txtidlap.getText(),txtkorban.getText(),txtkk.getText(),txtunit.getText(),txtidinput.getText()};
-                crud.UbahDinamis("kecelakaankerja", "id_laporan_KK", txtidlap.getText(), fieldEdit, valueField);
+                crud.UbahDinamis("laporan_kecelakaan_kerja", "id_laporan_KK", txtidlap.getText(), fieldEdit, valueField);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
@@ -173,7 +173,7 @@ public class frameKecelakaanKerja extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-                crud.HapusDinamis("kecelaakaankerja", "id_laporan_KK", txtidlap.getText());
+                crud.HapusDinamis("laporan_kecelakaan_kerja", "id_laporan_KK", txtidlap.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }

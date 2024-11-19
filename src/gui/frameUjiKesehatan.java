@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class frameUjiKesehatan extends javax.swing.JFrame {
     private configDB crud; //nama objek secara global dari config db
-    private String[] fieldSimpan={"id_laporan_uji","pemeriksaan_fisik","pemeriksaan_mata","pemeriksaan_gigi_mulut","pemeriksaan_tht","pemeriksaan_paru","pemeriksaan_laboratorium","id_biodata","tanggal","rekomendasi","id_input_data"};
-    private String[] fieldEdit={"pemeriksaan_fisik","pemeriksaan_mata","pemeriksaan_gigi_mulut","pemeriksaan_tht","pemeriksaan_paru","pemeriksaan_laboratorium","id_biodata","tanggal","rekomendasi","id_input_data"};
+    private String[] fieldSimpan={"id_laporan_uji_kesehatan_berkala","pemeriksaan_fisik","pemeriksaan_mata","pemeriksaan_gigi_mulut","pemeriksaan_tht","pemeriksaan_paru","pemeriksaan_labolatorium","id_biodata","tgl","rekomendasi","id_input_data"};
+    private String[] fieldEdit={"pemeriksaan_fisik","pemeriksaan_mata","pemeriksaan_gigi_mulut","pemeriksaan_tht","pemeriksaan_paru","pemeriksaan_labolatorium","id_biodata","tgl","rekomendasi","id_input_data"};
     /**
      * Creates new form frameUjiKesehatan
      */
@@ -58,7 +58,7 @@ public class frameUjiKesehatan extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("id_laporan_uji_kesehatan_berkala");
 
@@ -121,10 +121,9 @@ public class frameUjiKesehatan extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,11 +219,11 @@ public class frameUjiKesehatan extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            if (crud.duplicateKey("ujikesehatan", "id_laporan_uji", txtidlaporanuji.getText())) {
+            if (crud.duplicateKey("laporan_uji_kesehatan_berkala", "id_laporan_uji", txtidlaporanuji.getText())) {
                 JOptionPane.showMessageDialog(null, "ID Karyawan Sudah ada");
             }else{
                 String[] isiField={txtidlaporanuji.getText(),txtpemfis.getText(),txtpemma.getText(),txtpemgi.getText(),txtpemtht.getText(),txtpempa.getText(),txtpemlab.getText(),txtidbio.getText(),txttgl.getText(),txtrek.getText(),txtinput.getText()};
-                crud.SimpanDinamis("ujikesehatan", fieldSimpan, isiField);
+                crud.SimpanDinamis("laporan_uji_kesehatan_berkala", fieldSimpan, isiField);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -235,7 +234,7 @@ public class frameUjiKesehatan extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
                 String[] valueField = {txtidlaporanuji.getText(),txtpemfis.getText(),txtpemma.getText(),txtpemgi.getText(),txtpemtht.getText(),txtpempa.getText(),txtpemlab.getText(),txtidbio.getText(),txttgl.getText(),txtrek.getText(),txtinput.getText()};
-                crud.UbahDinamis("ujikesehatan", "id_laporan_uji", txtidlaporanuji.getText(), fieldEdit, valueField);
+                crud.UbahDinamis("laporan_uji_kesehatan_berkala", "id_laporan_uji", txtidlaporanuji.getText(), fieldEdit, valueField);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
@@ -244,7 +243,7 @@ public class frameUjiKesehatan extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
-                crud.HapusDinamis("laporanuji", "id_laporan_uji", txtidlaporanuji.getText());
+                crud.HapusDinamis("laporan_uji_kesehatan_berkala", "id_laporan_uji", txtidlaporanuji.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
