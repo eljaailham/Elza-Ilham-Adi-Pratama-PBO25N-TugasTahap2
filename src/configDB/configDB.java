@@ -14,6 +14,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author ACER
@@ -176,7 +192,81 @@ public class configDB {
             System.out.println(e.toString());
         }
     }
+ public void settingJudulTabel(JTable Tabelnya, String[] JudulKolom){
+        try {
+            Modelnya = new DefaultTableModel();
+            Tabelnya.setModel(Modelnya);
+            for (int i = 0; i < JudulKolom.length; i++) {
+                Modelnya.addColumn(JudulKolom[i]);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+      public void settingLebarKolom(JTable Tabelnya,int[] Kolom){
+      try {
+          Tabelnya.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+          for (int i = 0; i < Kolom.length; i++) {
+           Kolomnya =Tabelnya.getColumnModel().getColumn(i);
+          Kolomnya.setPreferredWidth(Kolom[i]);   
+          }
+          
+        
+      } catch (Exception e) {
+          System.out.println(e.toString());
+      }
+  }
+      public Object[][] isiTabel(String SQL, int jumlah){
+       Object[][] data = null;
+    try {
+        Statement perintah = getKoneksiDB().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet dataset = perintah.executeQuery(SQL);
 
+        // Scrollable untuk menghitung jumlah baris
+        dataset.last();
+        int baris = dataset.getRow(); // Dapatkan jumlah baris
+        dataset.beforeFirst(); // Kembali ke awal
+
+        int j = 0;
+        data = new Object[baris][jumlah];
+        while (dataset.next()) {
+            for (int i = 0; i < jumlah; i++) {
+                data[j][i] = dataset.getString(i + 1);
+            }
+            j++;
+        }
+        dataset.close();
+        perintah.close();
+    } catch (Exception e) {
+        System.err.print(e.toString());
+    }
+    return data;
+}
+      public void tampilTabel(JTable Tabelnya, String SQL, String[] Judul){
+     try {
+        Tabelnya.setModel(new DefaultTableModel(isiTabel(SQL, Judul.length), Judul));
+    } catch (Exception e) {
+        System.out.println(e.toString());
+    }
+  }
+      
+      public void tampilLaporan(String laporanFile, String SQL) throws SQLException{
+      try {
+          File file = new File(laporanFile);
+          JasperDesign jasDes = JRXmlLoader.load(file);
+
+           JRDesignQuery sqlQuery = new JRDesignQuery();
+           sqlQuery.setText(SQL);
+           jasDes.setQuery(sqlQuery);
+
+           JasperReport JR = JasperCompileManager.compileReport(jasDes);
+           JasperPrint JP = JasperFillManager.fillReport(JR,null,getKoneksiDB()); 
+           JasperViewer.viewReport(JP,false);
+         } catch (JRException e) {
+            JOptionPane.showMessageDialog(null,e.toString());       
+
+         }
+      }
 
  
 
